@@ -1,6 +1,0 @@
-@DBOperationsWithEFCoreApp_HostAddress = http://localhost:5213
-
-GET {{DBOperationsWithEFCoreApp_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###
