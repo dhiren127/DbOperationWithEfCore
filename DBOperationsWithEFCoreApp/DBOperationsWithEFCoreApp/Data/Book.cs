@@ -12,7 +12,7 @@
 
 
         public int LanguageId { get; set; }
-        public Language Language { get; set; }
+        public Language? Language { get; set; }
 
     }
 }
