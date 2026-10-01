@@ -66,7 +66,41 @@ namespace DBOperationsWithEFCoreApp.Controllers
                 .ExecuteUpdateAsync(b => b.SetProperty(book => book.IsActive, book => false)
                 .SetProperty(book => book.Title, book => book.Title + " Updated"));
 
-            return Ok();            
+            return Ok();
+        }
+
+        [HttpDelete("{bookId}")]
+        public async Task<IActionResult> DeleteBook([FromRoute] int bookId)
+        {
+            var book = new Book { Id = bookId };
+            appDbContext.Entry(book).State = EntityState.Deleted;
+            await appDbContext.SaveChangesAsync();
+
+            //var book = await appDbContext.Books.FindAsync(bookId);
+            //if (book == null)
+            //{
+            //    return NotFound();
+            //}
+
+            //appDbContext.Books.Remove(book);
+            //await appDbContext.SaveChangesAsync();
+            return Ok(book);
+        }
+
+        [HttpDelete("bulk")]
+        public async Task<IActionResult> DeleteBookInBulk()
+        {
+            //var books = await appDbContext.Books
+            //    .Where(book => book.Id > 6)
+            //    .ToListAsync();
+            //appDbContext.Books.RemoveRange(books);
+            //await appDbContext.SaveChangesAsync();
+
+            await appDbContext.Books
+                .Where(book => book.Id > 6)
+                .ExecuteDeleteAsync();
+
+            return Ok();
         }
     }
 }
